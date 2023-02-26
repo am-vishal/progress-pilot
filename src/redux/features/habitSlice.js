@@ -1,3 +1,4 @@
+// Create a Redux slice for managing habits
 import { createSlice } from "@reduxjs/toolkit";
 let id = 1;
 

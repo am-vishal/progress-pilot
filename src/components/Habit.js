@@ -10,6 +10,7 @@ const Habit = ({ habit, habitNumber }) => {
   const today = new Date();
   const todayDay = today.getDay();
   let countDone = 0;
+  // loop through the habit's weekLog and count the number of times the habit was completed
   for (let i = 0; i < habit.weekLog.length; i++) {
     if (habit.weekLog[i].isDone === true) {
       countDone++;
@@ -17,12 +18,12 @@ const Habit = ({ habit, habitNumber }) => {
   }
 
   const handleDelete = () => {
-    dispatch(deleteHabit(habit.id));
+    dispatch(deleteHabit(habit.id)); // dispatch deleteHabit action with the habit's id
     alert("deleted successfully");
   };
 
   const setId = () => {
-    localStorage.setItem("id", habit.id);
+    localStorage.setItem("id", habit.id); // set the habit's id in local storage
     navigate("/weekly");
   };
 
