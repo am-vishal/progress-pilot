@@ -1,15 +1,53 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { deleteHabit } from "../redux/features/habitSlice";
+import { useNavigate } from "react-router-dom";
 
-function Habit({ habit }) {
-  const { name, frequency, done } = habit;
+const Habit = ({ habit, habitNumber }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const today = new Date();
+  const todayDay = today.getDay();
+  let countDone = 0;
+  for (let i = 0; i < habit.weekLog.length; i++) {
+    if (habit.weekLog[i].isDone === true) {
+      countDone++;
+    }
+  }
+
+  const handleDelete = () => {
+    dispatch(deleteHabit(habit.id));
+    alert("your habit deleted successfully");
+  };
+
+  const setId = () => {
+    localStorage.setItem("id", habit.id);
+    navigate("/weekly");
+  };
 
   return (
-    <div className={`habit ${done ? "habit-done" : ""}`}>
-      <h2>{name}</h2>
-      <p>Frequency: {frequency}</p>
-      <button className="habit-button">{done ? "Done" : "Not Done"}</button>
+    <div className="habit">
+      <div className="habit-left">
+        <div>
+          <h4>
+            {habitNumber + 1}. {habit.name}
+          </h4>
+          <div className="progress-container">
+            <div className="progress-bar" style={{ "--progress-width": `${(countDone / (todayDay + 1)) * 100}%` }}>
+              <div className="progress-bar-text">{Math.round((countDone / (todayDay + 1)) * 100)}%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="habit-right">
+        <div className="week-btn" onClick={setId}>
+          Weekly Track
+        </div>
+        <i className="fa-solid fa-trash" onClick={handleDelete}></i>
+      </div>
     </div>
   );
-}
+};
 
 export default Habit;
