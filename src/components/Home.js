@@ -12,6 +12,7 @@ const Home = () => {
     // check if the trimmed habit name is more than 2 characters and only contains alphabets
     const isValid = /^[A-Za-z]{3,}$/.test(trimmedHabitName);
     if (isValid) {
+      // Dispatch an action to add a new habit to the Redux store.
       dispatch(addHabit(trimmedHabitName));
       alert("Your habit added successfully");
       setHabitName("");
@@ -20,6 +21,7 @@ const Home = () => {
     }
   };
 
+  // retrieve the habits state from the Redux store
   let habitsState = useSelector((state) => state["habits"]);
 
   return (

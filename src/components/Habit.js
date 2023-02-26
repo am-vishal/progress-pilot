@@ -18,7 +18,7 @@ const Habit = ({ habit, habitNumber }) => {
 
   const handleDelete = () => {
     dispatch(deleteHabit(habit.id));
-    alert("your habit deleted successfully");
+    alert("deleted successfully");
   };
 
   const setId = () => {
